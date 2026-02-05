@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
-from app import schemas, crud
+from app import schemas, crud, models # Ensure models is imported for the delete function
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
@@ -11,6 +11,23 @@ def get_db():
         yield db
     finally:
         db.close()
+
+# Changed from "/" to "" so it responds to /employees exactly
+@router.get("")
+def list_employees(db: Session = Depends(get_db)):
+    return crud.get_all_employees(db)
+
+# Changed from "/" to ""
+@router.post("", response_model=schemas.EmployeeResponse, status_code=201)
+def add_employee(emp: schemas.EmployeeCreate, db: Session = Depends(get_db)):
+    result = crud.create_employee(db, emp)
+    if not result:
+        raise HTTPException(
+            status_code=409,
+            detail="Employee ID or Email already exists"
+        )
+    return result
+
 @router.delete("/{employee_id}", status_code=204)
 def delete_employee(employee_id: int, db: Session = Depends(get_db)):
     emp = db.query(models.Employee).filter(
@@ -22,19 +39,4 @@ def delete_employee(employee_id: int, db: Session = Depends(get_db)):
 
     db.delete(emp)
     db.commit()
-
-
-    return {"message": "Employee deleted successfully"}
-@router.post("/",response_model=schemas.EmployeeResponse, status_code=201)
-def add_employee(emp: schemas.EmployeeCreate, db: Session = Depends(get_db)):
-    result = crud.create_employee(db, emp)
-    if not result:
-        raise HTTPException(
-            status_code=409,
-            detail="Employee ID or Email already exists"
-        )
-    return result
-
-@router.get("/")
-def list_employees(db: Session = Depends(get_db)):
-    return crud.get_all_employees(db)
+    return None # 204 status code should return None/empty

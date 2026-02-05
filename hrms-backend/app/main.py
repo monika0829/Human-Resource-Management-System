@@ -4,22 +4,19 @@ from app.routes import employee, attendance
 from app.database import engine
 from app.models import Base
 
-# Create tables on startup
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="HRMS Lite API")
+# redirect_slashes=False is VITAL for CORS success with Axios
+app = FastAPI(title="HRMS Lite API", redirect_slashes=False)
 
-# GLOBAL CORS CONFIGURATION
-# This adds the 'Access-Control-Allow-Origin' header to every response
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # Allows all domains (resolves the CORS policy error)
-    allow_credentials=False,  # Must be False when using the "*" wildcard
-    allow_methods=["*"],      # Allows GET, POST, PUT, DELETE, etc.
-    allow_headers=["*"],      # Allows all headers (Content-Type, Authorization, etc.)
+    allow_origins=["*"], # THIS IS THE HEADER: Access-Control-Allow-Origin: *
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-# Important: Do not use trailing slashes in your route inclusions
 app.include_router(employee.router)
 app.include_router(attendance.router)
 
