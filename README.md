@@ -1,168 +1,175 @@
-🧑‍💼 HRMS Lite – Employee & Attendance Management System
+# HRMS Lite
 
-HRMS Lite is a full-stack HR management application built using FastAPI (Backend) and React (Frontend).
-It allows organizations to manage employees and track daily attendance through a clean, production-ready UI.
+## Project Overview
 
-🚀 Features
-✅ Employee Management
+HRMS Lite is a lightweight Human Resource Management System designed to manage core HR data such as employees and attendance. The project follows a clean frontend–backend separation where a modern web UI communicates with a RESTful API built using FastAPI, and data is persisted in a PostgreSQL database.
 
-Add new employees
+The system currently supports:
 
-View employee list
+* Creating and listing employees
+* Recording and viewing attendance
+* UUID-based identifiers for better security and scalability
 
-Delete employees
+This project is intended for learning, prototyping, and small internal HR tools.
 
-Prevent duplicate employee ID or email
+---
 
-✅ Attendance Management
+## Tech Stack Used
 
-Mark attendance (Present / Absent)
+### Backend
 
-Automatically records attendance for the current day
+* **Python 3.13**
+* **FastAPI** – REST API framework
+* **SQLAlchemy** – ORM for database interaction
+* **Pydantic** – Data validation and serialization
+* **PostgreSQL** – Relational database
+* **Uvicorn** – ASGI server
 
-Prevents duplicate attendance for the same employee on the same day
+### Frontend
 
-View attendance records with employee names
+* **React** (Vite)
+* **HTML / CSS / JavaScript**
+* **Fetch API** for HTTP requests
 
-✅ Dashboard
+### Tools
 
-Total Employees count
+* **pgAdmin 4** – Database management
+* **VS Code** – Development environment
 
-Present Today count
+---
 
-(Extendable for Absent Today & analytics)
+## Steps to Run the Project Locally
 
-✅ Reports & Summary
+### 1️⃣ Prerequisites
 
-Display Total Present Days per Employee
+Make sure the following are installed:
 
-Live UI updates (no refresh required)
+* Python 3.10+
+* PostgreSQL
+* Node.js & npm
+* Git
 
-🛠️ Tech Stack
-Backend
+---
 
-FastAPI
+### 2️⃣ Clone the Repository
 
-PostgreSQL
+```bash
+git clone <repository-url>
+cd HRMS_A
+```
 
-SQLAlchemy
+---
 
-Pydantic
+### 3️⃣ Backend Setup
 
-Frontend
+#### Create virtual environment
 
-React (Vite)
-
-Axios
-
-CSS (Custom Layout)
-
-📂 Project Structure
-hrms-lite/
-│
-├── backend/
-│   ├── app/
-│   │   ├── routes/
-│   │   │   ├── employees.py
-│   │   │   └── attendance.py
-│   │   ├── models.py
-│   │   ├── schemas.py
-│   │   ├── crud.py
-│   │   └── database.py
-│   └── main.py
-│
-├── frontend/
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Employees.jsx
-│   │   │   └── Attendance.jsx
-│   │   ├── components/
-│   │   │   ├── EmployeeForm.jsx
-│   │   │   ├── EmployeeTable.jsx
-│   │   │   └── AttendanceForm.jsx
-│   │   ├── api/api.js
-│   │   └── styles/layout.css
-│
-└── README.md
-
-⚙️ Backend Setup
-1️⃣ Create Virtual Environment
+```bash
 python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
+venv\Scripts\activate   # Windows
+```
 
-2️⃣ Install Dependencies
-pip install fastapi uvicorn sqlalchemy psycopg2 pydantic
+#### Install dependencies
 
-3️⃣ Run Backend Server
-uvicorn app.main:app --reload
+```bash
+pip install -r requirements.txt
+```
 
+#### Configure Database
 
-Backend runs at:
+Create a PostgreSQL database:
 
-http://127.0.0.1:8000
+```sql
+CREATE DATABASE hrms_db;
+```
 
+Update `database.py`:
+
+```python
+DATABASE_URL = "postgresql://postgres:<password>@localhost:5432/hrms_db"
+```
+
+---
+
+### 4️⃣ Run Backend Server
+
+```bash
+uvicorn main:app --reload
+```
+
+Backend will run at:
+
+```
+http://localhost:8000
+```
 
 Swagger Docs:
 
-http://127.0.0.1:8000/docs
+```
+http://localhost:8000/docs
+```
 
-💻 Frontend Setup
-1️⃣ Install Dependencies
+Tables (`employees`, `attendance`) are auto-created on startup.
+
+---
+
+### 5️⃣ Frontend Setup
+
+```bash
+cd frontend
 npm install
-
-2️⃣ Run Frontend
 npm run dev
-
+```
 
 Frontend runs at:
 
+```
 http://localhost:5173
+```
 
-🔗 API Endpoints
-Employees
-Method	Endpoint	Description
-GET	/employees/	Get all employees
-POST	/employees/	Add employee
-DELETE	/employees/{id}	Delete employee
-Attendance
-Method	Endpoint	Description
-POST	/attendance/mark	Mark attendance
-GET	/attendance/	List attendance
-🎨 UI Highlights
+---
 
-Professional navbar (full width)
+### 6️⃣ Test the Application
 
-Responsive layout
+* Open the frontend in browser
+* Fill employee form and submit
+* Data is sent to backend and stored in PostgreSQL
+* Verify using pgAdmin or `/employees` API
 
-Status badges (Present = 🟢 Green, Absent = 🔴 Red)
+---
 
-Clean cards and tables
+## Assumptions & Limitations
 
-Real-time updates without page refresh
+### Assumptions
 
-❌ Out of Scope (As Per Assignment)
+* Application is run in **development mode**
+* Database schema can be dropped and recreated if needed
+* UUIDs are generated by backend (frontend does not send IDs)
 
-Leave Management
+### Limitations
 
-Payroll System
+* No authentication or authorization
+* No role-based access control
+* No pagination or filtering yet
+* No database migrations (Alembic not added)
+* Error handling is minimal (dev-focused)
 
-Advanced HR analytics
+---
 
-Role-based authentication
+## Future Enhancements
 
-📌 Future Enhancements
+* User authentication & roles
+* Alembic migrations
+* Pagination & search
+* Better error handling
+* Deployment using Docker
 
-Attendance filtering by date
+---
 
-Attendance percentage per employee
+## Author
 
-Export reports (CSV / PDF)
-
-Monthly attendance calendar
-
-👤 Author
-
+Developed as part of a learning and project implementation for HRMS fundamentals using FastAPI and React.
+tendance calendar
 Developed by:
 MONIKA MAURYA
 (HRMS Lite – Assignment Project)# Human-Resource-Management-System
