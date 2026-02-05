@@ -1,0 +1,7 @@
+# Set all text files to use LF in the repository
+* text=auto
+*.js text
+*.jsx text
+*.css text
+*.html text
+*.json text
