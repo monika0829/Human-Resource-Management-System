@@ -14,8 +14,8 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const empRes = await api.get("/employees/");
-        const attRes = await api.get("/attendance/");
+        const empRes = await api.get("/employees");
+        const attRes = await api.get("/attendance");
 
         const today = new Date().toISOString().split("T")[0];
         const totalEmployees = empRes.data.length;
