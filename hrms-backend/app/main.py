@@ -9,19 +9,13 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="HRMS Lite API")
 
-# Define which "origins" are allowed to talk to this API
-origins = [
-    "https://hrmsprojectn.netlify.app",  # Your production frontend
-    "http://localhost:5173",             # Your local development
-    "http://127.0.0.1:5173",             # Local development (alternative IP)
-]
-
+# Setting allow_origins to ["*"] removes all origin restrictions
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows GET, POST, PUT, DELETE, etc.
-    allow_headers=["*"],  # Allows all headers
+    allow_origins=["*"], 
+    allow_credentials=False,  # Must be False when using wildcard "*"
+    allow_methods=["*"],      # Allows GET, POST, PUT, DELETE, etc.
+    allow_headers=["*"],      # Allows all headers
 )
 
 app.include_router(employee.router)
