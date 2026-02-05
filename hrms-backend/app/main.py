@@ -4,22 +4,23 @@ from app.routes import employee, attendance
 from app.database import engine
 from app.models import Base
 
-# This creates your database tables on startup
+# Creates database tables on startup
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="HRMS Lite API")
 
-# Setting allow_origins to ["*"] removes all origin restrictions
+# BROADEST CORS SETTINGS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
-    allow_credentials=False,  # Must be False when using wildcard "*"
+    allow_origins=["*"],      # Allows all domains (Netlify, localhost, etc.)
+    allow_credentials=False,  # Required to be False when using "*"
     allow_methods=["*"],      # Allows GET, POST, PUT, DELETE, etc.
-    allow_headers=["*"],      # Allows all headers
+    allow_headers=["*"],      # Allows all custom headers
 )
 
-app.include_router(employee.router)
-app.include_router(attendance.router)
+# Routes
+app.include_router(employee.router, prefix="/employees", tags=["Employees"])
+app.include_router(attendance.router, prefix="/attendance", tags=["Attendance"])
 
 @app.get("/")
 def root():
