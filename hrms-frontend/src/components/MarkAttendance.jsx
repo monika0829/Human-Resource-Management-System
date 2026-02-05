@@ -20,7 +20,7 @@ const MarkAttendance = ({ employeeId }) => {
       setMessage("Attendance marked successfully ✅");
     } catch (err) {
       if (err?.status === 400) {
-        setError(err.data.detail); // "Attendance already marked for today"
+        setError(err.data.detail); 
       } else {
         setError("Something went wrong. Please try again.");
       }
