@@ -1,0 +1,89 @@
+.navbar {
+  width: 100vw;  
+  height: 60px;
+  background-color: #0f172a;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  box-sizing:border-box
+}
+
+.navbar a {
+  color: #cbd5f5;
+  margin-right: 24px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.navbar a:hover {
+  color: white;
+}
+
+
+.page {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+.page-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 32px;
+}
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+
+
+.section {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.app-bg {
+  min-height: calc(100vh - 64px);
+  background-color: #7ec89b;   /* ⭐ ADD THIS */
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 420px;
+  padding: 40px 60px;
+}
+
+.page-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.form-wrapper {
+  flex: 1;
+  max-width: 420px;
+}
+
+.list-wrapper {
+  flex: 2;
+}
+
