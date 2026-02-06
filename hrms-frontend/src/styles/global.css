@@ -2,6 +2,9 @@ body {
   font-family: "Inter", "Segoe UI", sans-serif;
   background-color: #84b998;
   color: #2a3330;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 
